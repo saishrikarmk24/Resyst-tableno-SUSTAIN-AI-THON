@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Form</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #d8ffd8;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 20px;
+            background-color: #76c7a8;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            flex-grow: 1;
+            justify-content: center;
+            margin-top: 80px;
+        }
+        .ki{
+            text-decoration: none;
+        }
+        form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 350px;
+            background-color: #76c7a8;
+            border-radius: 15px;
+            padding: 10px 15px;
+            box-shadow: 0 7px 30px #6fbf9e, 0 0 0 15px #ffffffeb;
+            transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        form:hover {
+            transform: scale(1.1);
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            font-size: 18px;
+            line-height: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #fff;
+            padding: 5px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #a8e6cf;
+        }
+
+        button {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #76c7a8, #42a5f5);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button span {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover span {
+            transform: scale(1.3);
+        }
+
+        .result-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .map-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 7px 30px #6fbf9e, 0 0 0 15px #ffffffeb;
+        }
+
+        .map-details {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 7px 30px #6fbf9e, 0 0 0 15px #ffffffeb;
+        }
+
+        .loading {
+            width: 30px;
+            height: 30px;
+            border: 4px solid #fff;
+            border-top: 4px solid #76c7a8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" class="ki"><h1>AquaRegia</h1></a>
+    </div>
+
+    <div class="form-container">
+        <form id="search-form" onsubmit="handleSubmit(event)">
+            <input type="text" id="search-input" placeholder="Search water body..." required />
+            <button type="submit">
+                <span>➤</span>
+            </button>
+        </form>
+        <div id="result-container" class="result-container"></div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const inputField = document.getElementById("search-input");
+            const resultContainer = document.getElementById("result-container");
+            resultContainer.innerHTML = '<div class="loading"></div>';
+
+            setTimeout(() => {
+                resultContainer.innerHTML = `
+                    <img
+                        src="kj.jpg"
+                        class="map-image"
+                    />
+                    <div class="map-details">
+                        <h3>Pollution Insights for: ${inputField.value}</h3>
+                    </div>
+                `;
+                inputField.value = '';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

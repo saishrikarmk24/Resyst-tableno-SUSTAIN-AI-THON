@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %}Contact{% endblock %}
+
+{% block content %} 
+<style>
+        body {
+            line-height: 1.6;
+            margin: 0;
+        }
+        .contact {
+            max-width: 600px;
+            margin: auto;
+            margin-bottom: 10%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .contact h1 {
+            text-align: center;
+        }
+        .contact p {
+            margin: 10px 0;
+        }
+
+        .container-content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5%;
+        }
+
+        .contact a{
+            text-decoration: none;
+        }
+</style>
+
+<body>
+    <div class="container-content">
+        <div class="contact">
+            <h1>Contact Us</h1>
+            <p>We’d Love to Hear from You!</p>
+            <p>Have questions, feedback, or need assistance with the AquaRegia app? We’re here to help you! </p>
+            
+            <p><strong>Email Us:</strong> <a href="mailto:info@eduflex.com">info@AquaRegia.com</a></p>
+            <p><strong>Call Us:</strong> +91 8610074692</p>
+            
+            <p><strong>Office Address:</strong><br>
+            AquaRegia Inc.<br>
+            Opp to SRM VDP <br>
+            Chennai City, TamilNadu, 600093<p>
+            
+            <p><strong>Follow Us on Social Media:</strong></p>
+            <p>Facebook: <a href="https://facebook.com/sustainability">facebook.com/AquaRegia</a></p>
+            <p>Twitter: <a href="https://twitter.com/SustainabilityApp">@AquaRegia</a></p>
+            <p>Instagram: <a href="https://instagram.com/Sustainabiity">@AquaRegia</a></p>
+            
+            <p><strong>Frequently Asked Questions:</strong></p>
+            <p>Visit our <a href="/faqs">FAQ page</a> for quick answers to common questions.</p>  
+        </div>
+    </div>
+</body> 
+{% endblock %}

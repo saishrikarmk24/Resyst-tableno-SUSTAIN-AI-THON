@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        nav{
+            width: 100%;
+        }
+        body{
+            font-family: "Playfair Display", serif;
+            color: white;
+            min-height: 100vh;
+            background-repeat: repeat;
+            line-height: 1.6;
+            margin: 0;
+        }
+        h1{
+            font-size: 7rem;
+            font-style: normal;
+            font-weight: 500;
+            padding: 5px 5px;
+
+        }
+        h3{
+            font-size: 2rem;
+            font-style: normal;
+            font-weight: 500;
+            padding: 5px 5px;
+        }
+        .heading{
+            display: flex;
+            justify-content: center;
+            align-items:first baseline;
+        }
+
+        @media(max-width: 450px){
+            h1{
+            font-size:  0px;
+            font-style: normal;
+            font-weight: 500;
+            padding: 5px 5px;
+            } 
+        h3{
+            font-size: 25px;
+            font-style: normal;
+            font-weight: 500;
+            padding: 5px 5px;
+            }
+        .heading{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            }
+        }
+
+        @media(max-width: 900px){
+            h1{
+            font-size: 5rem;
+            font-style: normal;
+            font-weight: 500;
+            padding: 5px 5px;
+        } 
+        h3{
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            padding: 5px 5px;
+        }
+        nav{
+            width: 100%;
+        }
+        .heading{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <h1>AquaRegia</h1>
+        <h3>- Live Green. Live Better</h3>
+    </div>
+    
+    <div class="picture-desc">
+        
+    </div>
+</body>
+</html>
+
+{% endblock %}

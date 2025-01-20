@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block title %}FAQs{% endblock %}
+
+{% block content %} 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            line-height: 1.6;
+            margin: 0;
+        }
+        .faq {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 5%;
+            margin-bottom: 10%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .faq h1 {
+            text-align: center;
+        }
+        .faq p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq">
+        <h1>Frequently Asked Questions</h1>
+        <p>Welcome to the FAQ section for the AquaRegia Web App. Here you'll find answers to common questions about our app.</p>
+
+        <p><strong>1. How accurate is satellite-based pollution detection compared to traditional water testing methods?
+        </strong></p>
+        <p>While not a replacement for chemical testing, 
+            our system achieves 85-90% accuracy in detecting visible pollution 
+            and can cover vastly larger areas in real-time.</p>
+
+        <p><strong>2. What is the minimum size of garbage/pollution that can be detected using satellite imagery?</strong></p>
+        <p>The system can detect pollution clusters roughly 10 meters or larger in size, 
+            depending on satellite resolution and weather conditions.</p>
+
+        <p><strong>3. Can I create multiple profiles?</strong></p>
+        <p>Yes, you can create multple profiles. </p>
+        <p><strong>4. Can the system differentiate between different types of water pollution?</strong></p>
+        <p>Yes, the system primarily detects visible surface pollution and turbidity levels.</p>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock %}

@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{ 
+    min-height: 100vh; /*ensures the content covers the full page, should be implemented at the start of each web project*/
+    background-image: url("background.jpg"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: "Playfair Display", serif;
+}
+
+nav{
+    background-color:rgba(27,39,53,255);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: auto;
+}
+
+nav ul{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+}
+
+nav li{
+    height: 50px;
+
+}
+
+nav a{
+    height: 100%;
+    padding: 0 30px; /*top+bottom = 0 ..... left+right = 30px */
+    text-decoration: none; /*removes the default underline that comes with a link tag*/
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    border-radius: 8px;
+}
+
+nav a:hover{
+    color: lightblue;
+}
+
+nav li:first-child{
+    margin-right: auto; 
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start; /*align-items aligns the items along the horizontal axis.*/
+    justify-content: flex-start; /*justify-content - the items along the vertical axis.*/     
+}
+
+.sidebar li{
+    width: 100%;
+}
+
+.sidebar a{
+    width: 100%;
+}
+
+.menu-btn{
+    display: none;
+}
+
+@media(max-width: 800px){
+    .hideOnMobile{
+        display: none;
+    }
+    .menu-btn{
+        display: block;
+    }
+    .sidebar a{
+        color: black;
+    }
+}
+ 
+@media(max-width: 450px){
+    .sidebar{
+        width: 100%;
+    }
+
+    .sidebar a{
+        color: black;
+    }
+}
+
+
+.active{
+    font-weight: bold;
+    color: blue;
+    border-bottom: 2px solid blue;
+}
+
+
+
+.flash-message-success {
+    padding: 10px;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    position: relative;
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.flash-message-danger {
+    padding: 10px;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    position: relative;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: inherit;
+    cursor: pointer;
+}
+
+
+.product-feature{
+    border-radius: 5px;
+    color: white;
+}
+
+.product-feature:hover{
+    color: rgb(43, 64, 77);
+}
+
+
+
+
+
+
