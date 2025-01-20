@@ -42,18 +42,56 @@ Role-based authentication
 Public view for basic pollution maps
 Advanced analytics for premium users
 
+## Concept Map
 
-## Concept Map:
-
-
-
-
-
-
-
-
-
-
+```
+                        +--------------------+
+                        |  Satellite Data    |
+                        | (Google Earth,     |
+                        | NASA EOSDIS)       |
+                        +--------------------+
+                                  |
+                                  v
+          +-----------------------------------------+
+          |        Image Preprocessing              |
+          | - Cloud Masking                         |
+          | - Atmospheric Correction                |
+          | - Resizing, Normalization, Augmentation |
+          +-----------------------------------------+
+                                  |
+                                  v
+                +------------------------------+
+                | Machine Learning Models      |
+                | - YOLO (Object Detection)    |
+                | - Mask R-CNN (Segmentation)  |
+                | - Spectral Analysis          |
+                |   (Pollution Classification) |
+                +------------------------------+
+                                  |
+                                  v
+      +----------------------------------------------------+
+      | Detection & Pollution Estimation                  |
+      | - Garbage Detection                               |
+      | - Pollution Level Classification (High, Medium,   |
+      |   Low)                                            |
+      +----------------------------------------------------+
+                                  |
+                                  v
+                  +---------------------------------+
+                  | User Interaction               |
+                  | - React.js Dashboard           |
+                  | - Interactive Pollution Maps   |
+                  | - Historical Trend Graphs      |
+                  +---------------------------------+
+                                  |
+                                  v
+          +----------------------------------------------+
+          | Features                                     |
+          | - Area-wise Pollution Indicators            |
+          | - Role-based Authentication (Public, Admin) |
+          | - Advanced Analytics (Premium)              |
+          +----------------------------------------------+
+```
 
 ## Tech Stack:
 Frontend: HTML, CSS, Javascript (React.js)
@@ -74,7 +112,7 @@ We plan to make our product scalable by integrating more advanced AI models, exp
 ## Solution: 
 Our solution utilises satellite data from Google Earth Engine and NASA EOSDIS, focusing on multispectral bands for water quality analysis and historical patterns. Images undergo cloud masking, atmospheric correction, and preprocessing for machine learning. Using YOLO and Mask R-CNN, we train models for object detection and spectral pollution classification. An interactive React.js dashboard displays pollution hotspots, historical trends, and location-based searches. With role-based authentication, the platform offers public pollution maps and advanced analytics, empowering users to monitor and mitigate water pollution effectively.
 
-# Others:
+ # Others
 ## Business Model
 Our project envisions a SaaS (Software as a Service) business model with a tiered structure. The free tier provides access to basic pollution maps. Premium users gain access to historical analysis and prediction models, while enterprise clients receive custom analysis capabilities, API access, and dedicated support. Target customers include environmental agencies, municipal corporations, research institutions, and environmental NGOs.
 
