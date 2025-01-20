@@ -16,13 +16,13 @@
         }
         body{
             font-family: "Playfair Display", serif;
-            color: white;
+            color: black;
             min-height: 100vh;
             background-repeat: repeat;
             line-height: 1.6;
             margin: 0;
         }
-        h1{
+        #title{
             font-size: 7rem;
             font-style: normal;
             font-weight: 500;
@@ -40,9 +40,44 @@
             justify-content: center;
             align-items:first baseline;
         }
+        .intro-desc{
+            padding: 5px;
+            text-align: left;
+            margin: 5px 10px;
+        }
+
+        .try-product{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; 
+        }
+
+        .analyse-btn{
+            width: 200px;
+            height: 75px;
+            border-radius: 100px;
+            background-color: #67d380;
+            font-size: 30px;
+            color: white;
+            font-family: "Playfair Display", serif;
+            margin-left: 10px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .analyse-btn:hover{
+            background-color: #11b437;
+        }
+        h1{
+            margin-right: 10px;
+        }
+
+        a{
+            text-decoration: none;
+        }
 
         @media(max-width: 450px){
-            h1{
+            #title{
             font-size:  0px;
             font-style: normal;
             font-weight: 500;
@@ -64,7 +99,7 @@
         }
 
         @media(max-width: 900px){
-            h1{
+            #title{
             font-size: 5rem;
             font-style: normal;
             font-weight: 500;
@@ -86,16 +121,71 @@
             align-items: center;
         }
         }
+
+        
     </style>
 </head>
 <body>
     <div class="heading">
-        <h1>AquaRegia</h1>
+        <h1 id="title">AquaRegia</h1>
         <h3>- Live Green. Live Better</h3>
     </div>
     
-    <div class="picture-desc">
+
+    <div class="try-product">
+        <h1>Try Our Product Today: </h1>
+        <button class="analyse-btn"><a href="/analyze">Analyse</a></button>
+    </div>
+
+    <div class="intro-desc">
+        <h1 class="animate-character">What is AquaRegia? </h1>
+        <p>
+            Our Project is aimed at pursuing SDG 6 'Clean Water and Sanitation' and specifcally at
+            section 6.3 which aims to reduce water pollution. 
+        </p>
+        <p>
+            Our solution consists of training a 
+            Machine Learning model on existing datasets sourced from Google Earth and Nasa EOSDIS 
+            to classify using a classification algorithm the type of water-pollutant it is. (small, medium or large). 
+        </p>
+        <p>
+            We also allow users to interact with and search for a water body near them.
+        </p>
         
+    </div>
+
+    <div class = 'intro-desc'>
+        <h1 class="animate-character">What we Offer.</h1>
+        <p>Our solution utilises satellite data from Google Earth Engine and NASA EOSDIS, 
+            focusing on multispectral bands for water quality analysis and historical patterns. 
+            Images undergo cloud masking, atmospheric correction, and preprocessing for machine learning. 
+            Using YOLO and Mask R-CNN, we train models for object detection and spectral pollution classification. 
+            An interactive React.js dashboard displays pollution hotspots, historical trends, and location-based searches. With role-based authentication, 
+            the platform offers public pollution maps and advanced analytics, 
+            empowering users to monitor and mitigate water pollution effectively.</p>
+    </div>
+
+
+    <div class="intro-desc">
+        <h1 class="animate-character">Our Commitment to Sustainabilty</h1>
+        <p>
+            This project directly aligns with UN Sustainable Development Goal 6 (Clean Water and Sanitation), 
+            specifically target 6.3 which aims to improve water quality by reducing pollution and minimizing 
+            the release of hazardous materials into water bodies. By using satellite images and Artificial Intelligence 
+            for pollution detection, the product enables data-driven decision making and 
+            timely interventions to protect water resources, ultimately helping improve water quality and the ecosystem.
+        </p>
+    </div>
+
+    <div class="intro-desc">
+        <h1 class="animate-character">Why You Should Choose Us.</h1>
+        <p>
+            We offer a satellite-based pollution detection system using Artificial Intelligence and Machine Learning 
+            models that provides comprehensive pollution mapping without hardware dependencies.
+            Publicly accessible pollution mapping Scalable without hardware dependencies Historical pollution pattern analysis
+            We plan to make our product scalable by integrating more advanced AI models, expanding datasets, and 
+            working with more NGOs and corporations for a more comprehensive adoption worldwide.
+        </p>
     </div>
 </body>
 </html>

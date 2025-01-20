@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>EcoScan - Water Pollution Detector</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <style>
+       :root {
+           --primary: #2ecc71;
+           --secondary: #27ae60;
+           --background: #f0f9f4;
+           --text: #2c3e50;
+           --shadow: rgba(46, 204, 113, 0.2);
+       }
+
+
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           transition: all 0.3s ease;
+       }
+
+
+       body {
+           font-family: "Playfair Display", serif;
+           background: var(--background);
+           color: var(--text);
+           line-height: 1.6;
+           min-height: 100vh;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           padding: 2rem;
+       }
+
+
+       .container {
+           max-width: 900px;
+           width: 100%;
+           background: white;
+           padding: 2rem;
+           border-radius: 20px;
+           box-shadow: 0 10px 30px var(--shadow);
+           animation: fadeIn 0.5s ease;
+       }
+
+
+       @keyframes fadeIn {
+           from { opacity: 0; transform: translateY(20px); }
+           to { opacity: 1; transform: translateY(0); }
+       }
+
+
+       .header {
+           text-align: center;
+           margin-bottom: 2rem;
+       }
+
+
+       .header h1 {
+           color: var(--primary);
+           font-size: 2.5rem;
+           margin-bottom: 0.5rem;
+       }
+
+
+       .header p {
+           color: #666;
+       }
+
+
+       .upload-container {
+           border: 3px dashed var(--primary);
+           border-radius: 15px;
+           padding: 2rem;
+           text-align: center;
+           cursor: pointer;
+           margin-bottom: 2rem;
+           transition: all 0.3s ease;
+       }
+
+
+       .upload-container:hover {
+           background: rgba(46, 204, 113, 0.05);
+           transform: translateY(-5px);
+       }
+
+
+       .upload-icon {
+           font-size: 3rem;
+           color: var(--primary);
+           margin-bottom: 1rem;
+       }
+
+
+       .file-input {
+           display: none;
+       }
+
+
+       .analyze-btn {
+           background: var(--primary);
+           color: white;
+           border: none;
+           padding: 1rem 2rem;
+           border-radius: 10px;
+           font-size: 1.1rem;
+           cursor: pointer;
+           width: 100%;
+           margin-bottom: 2rem;
+           transform: scale(1);
+       }
+
+
+       .analyze-btn:hover {
+           background: var(--secondary);
+           transform: scale(1.02);
+       }
+
+
+       #preview {
+           max-width: 100%;
+           border-radius: 10px;
+           margin-bottom: 2rem;
+           box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+           display: none;
+       }
+
+
+       .result {
+           background: white;
+           padding: 1.5rem;
+           border-radius: 15px;
+           box-shadow: 0 5px 15px var(--shadow);
+           display: none;
+       }
+
+
+       .result h3 {
+           color: var(--primary);
+           margin-bottom: 1rem;
+       }
+
+
+       .status-indicator {
+           display: flex;
+           align-items: center;
+           margin-top: 1rem;
+           padding: 1rem;
+           border-radius: 10px;
+           background: #f8f9fa;
+       }
+
+
+       .status-icon {
+           font-size: 1.5rem;
+           margin-right: 1rem;
+       }
+
+
+       .progress-bar {
+           height: 10px;
+           background: #e9ecef;
+           border-radius: 5px;
+           margin: 1rem 0;
+           overflow: hidden;
+       }
+
+
+       .progress-fill {
+           height: 100%;
+           background: var(--primary);
+           width: 0%;
+           transition: width 1s ease;
+       }
+
+
+       @media (max-width: 768px) {
+           .container {
+               padding: 1rem;
+           }
+
+
+           .header h1 {
+               font-size: 2rem;
+           }
+       }
+       a{
+        text-decoration: none;
+        color: #27ae60;
+       }
+   </style>
+</head>
+<body>
+   <div class="container">
+       <div class="header">
+           <h1><i class="fas fa-water"></i> <a href="/">AQUAREGIA</a></h1>
+           <p>Advanced Water Pollution Detection System</p>
+       </div>
+
+
+       <div class="upload-container" onclick="document.getElementById('imageInput').click()">
+           <i class="fas fa-cloud-upload-alt upload-icon"></i>
+           <p>Click or drag to upload water body image</p>
+           <input type="file" id="imageInput" class="file-input" accept="image/*">
+       </div>
+
+
+       <button class="analyze-btn" onclick="analyzeImage()">
+           <i class="fas fa-search"></i> Analyze Water Quality
+       </button>
+
+
+       <img id="preview">
+      
+       <div id="result" class="result"></div>
+   </div>
+
+
+   <script>
+       function analyzeImage() {
+           const input = document.getElementById('imageInput');
+           const file = input.files[0];
+           if (!file) {
+               alert('Please select an image first');
+               return;
+           }
+
+
+           // Show and animate preview
+           const preview = document.getElementById('preview');
+           preview.style.display = 'block';
+           preview.style.opacity = '0';
+           preview.src = URL.createObjectURL(file);
+           setTimeout(() => preview.style.opacity = '1', 100);
+
+
+           // Show loading state
+           const resultDiv = document.getElementById('result');
+           resultDiv.style.display = 'block';
+           resultDiv.innerHTML = `
+               <h3><i class="fas fa-spinner fa-spin"></i> Analyzing...</h3>
+           `;
+
+
+           const formData = new FormData();
+           formData.append('image', file);
+
+
+           fetch('/analyze', {
+               method: 'POST',
+               body: formData
+           })
+           .then(response => response.json())
+           .then(data => {
+               const statusColor = data.status === 'High' ? '#e74c3c' :
+                                 data.status === 'Moderate' ? '#f39c12' : '#2ecc71';
+               const statusIcon = data.status === 'High' ? 'exclamation-triangle' :
+                                data.status === 'Moderate' ? 'exclamation-circle' : 'check-circle';
+
+
+               resultDiv.innerHTML = `
+                   <h3>Analysis Results</h3>
+                   <div class="progress-bar">
+                       <div class="progress-fill"></div>
+                   </div>
+                   <p>Pollution Level: ${data.pollution_level.toFixed(1)}%</p>
+                   <div class="status-indicator" style="background: ${statusColor}20">
+                       <i class="fas fa-${statusIcon} status-icon" style="color: ${statusColor}"></i>
+                       <div>
+                           <strong style="color: ${statusColor}">${data.status} Risk Level</strong>
+                           <p>Water quality assessment complete</p>
+                       </div>
+                   </div>
+               `;
+
+
+               // Animate progress bar
+               setTimeout(() => {
+                   document.querySelector('.progress-fill').style.width = $;{data.pollution_level}
+               }, 100);
+           })
+           .catch(error => {
+               resultDiv.innerHTML = `
+                   <h3 style="color: #e74c3c"><i class="fas fa-times-circle"></i> Error</h3>
+                   <p>Failed to analyze image. Please try again.</p>
+               `;
+           });
+       }
+
+
+       // Handle file input change
+       document.getElementById('imageInput').addEventListener('change', function(e) {
+           const fileName = e.target.files[0]?.name;
+           if (fileName) {
+               document.querySelector('.upload-container p').textContent = fileName;
+           }
+       });
+   </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
@@ -33,6 +33,11 @@ def signup():
             new_user = User(email=email, username=username, password=generate_password_hash(password, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
+
+            user = User.query.filter_by(email=email).first()
+            if user is None:
+                return jsonify({'error': 'User not found!'})
+            
             login_user(user, remember=True)
             flash("Account Created!", category="Success")
             print(new_user)
