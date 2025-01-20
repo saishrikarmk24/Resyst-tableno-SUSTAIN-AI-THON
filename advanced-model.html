@@ -1,0 +1,267 @@
+{% extends "base.html" %} {% block title %}Contact{% endblock %}
+
+{% block content %} 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Analyzer</title>
+    <style>
+        body {
+            font-family: "Playfair Display" ,serif;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-area {
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(52, 152, 219, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: scale(1.02);
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .quality-indicator {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .clean { background: #2ecc71; color: white; }
+        .low { background: #f1c40f; color: white; }
+        .medium { background: #e67e22; color: white; }
+        .high { background: #e74c3c; color: white; }
+        .severe { background: #c0392b; color: white; }
+
+        .image-preview {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💧 Water Quality Analyzer</h1>
+        
+        <div class="upload-area" id="upload-area">
+            <i>📸</i>
+            <p>Click or drag to upload a water sample image</p>
+        </div>
+        
+        <input type="file" id="file-input" accept="image/*" style="display: none;">
+        <button class="btn" id="analyze-btn">Analyze Water Quality</button>
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Analyzing your water sample...</p>
+        </div>
+
+        <div class="results" id="results">
+            <img id="preview-image" class="image-preview">
+            <div class="quality-indicator" id="quality-indicator"></div>
+            <p style="text-align: center;" id="recommendation"></p>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const qualityIndicator = document.getElementById('quality-indicator');
+        const previewImage = document.getElementById('preview-image');
+        const recommendation = document.getElementById('recommendation');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(52, 152, 219, 0.2)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = 'rgba(52, 152, 219, 0.05)';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(52, 152, 219, 0.05)';
+            fileInput.files = e.dataTransfer.files;
+            previewFile();
+        });
+
+        fileInput.addEventListener('change', previewFile);
+
+        function previewFile() {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        analyzeBtn.addEventListener('click', async () => {
+            if (!fileInput.files[0]) {
+                alert('Please upload an image first!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+
+            results.style.display = 'none';
+            loading.style.display = 'block';
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+                loading.style.display = 'none';
+
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    return;
+                }
+
+                qualityIndicator.className = 'quality-indicator ' + data.predicted_class.toLowerCase();
+                qualityIndicator.textContent = Water ;Quality: $;{data.predicted_class};
+
+                const recommendations = {
+                    Clean: "✅ This water appears safe. Regular monitoring is still recommended.",
+                    Low: "⚠ Minor pollution detected. Basic filtration recommended.",
+                    Medium: "⚠ Moderate pollution. Professional treatment advised.",
+                    High: "🛑 Significant pollution. Do not use without thorough treatment.",
+                    Severe: "⛔ Severe pollution. Immediate action required. Do not use!"
+                };
+
+                recommendation.textContent = recommendations[data.predicted_class];
+                results.style.display = 'block';
+                
+                results.scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                loading.style.display = 'none';
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+{% endblock %}
